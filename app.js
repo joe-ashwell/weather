@@ -6,7 +6,7 @@
 //! - Serve weather info to user on page
 
 let weatherEndpoint;
-const weather = [];
+const weatherArray = [];
 const currentWeather = [];
 const hourlyWeather = [];
 const dailyWeather = [];
@@ -19,8 +19,8 @@ const resultState = document.querySelector('h1.weather-result-hero');
 const resultCountry = document.querySelector('h2.weather-result-hero');
 const resultDate = document.querySelector('p.weather-result-hero');
 
-
-const kelvinToCelcius = -273.15;
+const currentWeatherDescription = document.querySelector('p.middle-hero-weather');
+const currentTemp = document.querySelector('p.middle-hero-temp');
 
 // Function to get the endpoint of users location
 function getLocationEndpoint() {
@@ -28,8 +28,8 @@ function getLocationEndpoint() {
   fetch(cityEndpoint)
     .then(blob => blob.json())
     .then(data => positionArray.push(data))
-    .then(displayLocationResults)
-    .then(getLocalWeather);
+    .then(getLocalWeather)
+    .then(displayHero);
   
 }
 
@@ -41,25 +41,29 @@ function getLocalWeather() {
   fetch(weatherEndpoint)
     .then(blob => blob.json())
     .then(data => {
-      weather.push(data)
+      weatherArray.push(data)
       currentWeather.push(data.current)
       dailyWeather.push(data.daily)
       hourlyWeather.push(data.hourly)
     })
-    .then(console.log(weather))
+    .then(console.log(weatherArray))
     .then(console.log(currentWeather))
     .then(console.log(dailyWeather))
-    .then(console.log(hourlyWeather));
+    .then(console.log(hourlyWeather))
+    .then(displayHero);
 
 
 }
 
 // Tried passing in the positionArray as an arguement, but that created a console error as when the script is ran initially the array is empty, so everything is undefined.
-function displayLocationResults() {
+function displayHero() {
 
   resultState.innerHTML = `${positionArray[positionArray.length - 1].state}`;
   resultCountry.innerHTML = `${positionArray[positionArray.length - 1].country_name}`;
   resultDate.innerHTML = convertTimestampToDate(1604911709101);
+
+  currentWeatherDescription.innerHTML = `${weatherArray[0].current.weather[0].description}`;
+  currentTemp.innerHTML = `${convertKelvintoDegC(weatherArray[0].current.temp).toFixed(0)}°C`
 
 }
 
@@ -67,6 +71,12 @@ function convertTimestampToDate(timestamp) {
 
   let date = new Date(timestamp);
   return `${date.getDate() + 1}/${date.getMonth() + 1}/${date.getFullYear()}`;
+
+}
+
+function convertKelvintoDegC(kelvin) {
+
+  return -273.15 + kelvin;
 
 }
 
