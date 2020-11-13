@@ -23,6 +23,15 @@ const getLocation = () => {
     positionObj.latitude = position.coords.latitude;
     positionObj.longitude = position.coords.longitude;
     console.log(positionObj);
+
+    const reverseGeocodeEndpoint = `https://api.mapbox.com/geocoding/v5/mapbox.places/${positionObj.longitude},${positionObj.latitude}.json?access_token=pk.eyJ1Ijoiam9lYXNod2VsbCIsImEiOiJja2gxdzBkN2MwOHdtMnVsc2t5MG1jOGJ2In0.LG1Bdwg4-nRKZ0gOic6BPw`;
+
+    fetch(reverseGeocodeEndpoint)
+      .then(blob => blob.json())
+      .then(data => {
+        positionObj.locationInfo = data.features;
+      })
+
     //didn't work initially, needed to pass the position object into it to get it to run successfully
     getLocalWeather(positionObj);
 
@@ -48,10 +57,10 @@ const getLocalWeather = (location) => {
 // Tried passing in the positionArray as an arguement, but that created a console error as when the script is ran initially the array is empty, so everything is undefined.
 const displayHero = () => {
 
-  resultState.innerHTML = `${positionObj.latitude}`;
-  resultCountry.innerHTML = `${positionObj.longitude}`;
-  resultDate.innerHTML = convertTimestampToDate(1604911709101);
-
+  resultState.innerHTML = `${positionObj.locationInfo[4].text}`;
+  resultCountry.innerHTML = `${positionObj.locationInfo[6].text}`;
+  resultDate.innerHTML = convertTimestampToDate(weatherArray[0].current.dt * 1000);
+  // weatherArray[0].current.dt
   currentWeatherDescription.innerHTML = `${weatherArray[0].current.weather[0].description}`;
   currentTemp.innerHTML = `${convertKelvintoDegC(weatherArray[0].current.temp).toFixed(0)}°C`
 
@@ -61,7 +70,7 @@ const displayHero = () => {
 function convertTimestampToDate(timestamp) {
 
   let date = new Date(timestamp);
-  return `${date.getDate() + 1}/${date.getMonth() + 1}/${date.getFullYear()}`;
+  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 
 }
 
