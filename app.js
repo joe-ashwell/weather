@@ -7,9 +7,6 @@
 let weatherEndpoint;
 const weatherArray = [];
 
-const cityEndpoint = 'https://geolocation-db.com/json/';
-const positionObj = {};
-
 const resultState = document.querySelector('h1.weather-result-hero');
 const resultCountry = document.querySelector('h2.weather-result-hero');
 const resultDate = document.querySelector('p.weather-result-hero');
@@ -17,21 +14,25 @@ const resultDate = document.querySelector('p.weather-result-hero');
 const currentWeatherDescription = document.querySelector('p.middle-hero-weather');
 const currentTemp = document.querySelector('p.middle-hero-temp');
 
-const getLocationPromise = new Promise(() => {
+const positionObj = {};
+
+const getLocation = () => {
 
   navigator.geolocation.getCurrentPosition(function(position) {
 
     positionObj.latitude = position.coords.latitude;
     positionObj.longitude = position.coords.longitude;
     console.log(positionObj);
+    //didn't work initially, needed to pass the position object into it to get it to run successfully
+    getLocalWeather(positionObj);
 
   })
 
-});
+};
 
-getLocationPromise.then(getLocalWeather = () => {
+const getLocalWeather = (location) => {
 
-  weatherEndpoint = `https://api.openweathermap.org/data/2.5/onecall?lat=${positionObj.latitude}&lon=${positionObj.longitude}&exclude=minutely&appid=bc23f6fca36dd2062739984568b51cfa`;
+  weatherEndpoint = `https://api.openweathermap.org/data/2.5/onecall?lat=${location.latitude}&lon=${location.longitude}&exclude=minutely&appid=bc23f6fca36dd2062739984568b51cfa`;
 
   fetch(weatherEndpoint)
     .then(blob => blob.json())
@@ -39,24 +40,10 @@ getLocationPromise.then(getLocalWeather = () => {
     .then(console.log(weatherArray))
     .then(displayHero);
   
-    console.log(positionObj);
+    console.log(location);
 
-})
+}
 
-// function to get the weather info based on the users location
-// function getLocalWeather() {
-
-//   weatherEndpoint = `https://api.openweathermap.org/data/2.5/onecall?lat=${positionObj.latitude}&lon=${positionObj.longitude}&exclude=minutely&appid=bc23f6fca36dd2062739984568b51cfa`;
-
-//   fetch(weatherEndpoint)
-//     .then(blob => blob.json())
-//     .then(data => weatherArray.push(data))
-//     .then(console.log(weatherArray))
-//     .then(displayHero);
-  
-//     console.log(positionObj);
-
-// }
 
 // Tried passing in the positionArray as an arguement, but that created a console error as when the script is ran initially the array is empty, so everything is undefined.
 const displayHero = () => {
@@ -86,4 +73,4 @@ function convertKelvintoDegC(kelvin) {
 }
 
 // Invoke getLocation on load
-window.addEventListener('load', getLocationPromise);
+window.addEventListener('load', getLocation);
