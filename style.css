@@ -1,13 +1,27 @@
+* {
+  font-family: 'Oxygen', sans-serif;
+}
+
 body {
   overflow-x: hidden;
 }
+
 .weather-result-hero {
   background-color: blue;
   border-radius: 2rem;
-
+  padding: 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.left-hero {
+  display: flex;
+  flex-direction: column;
+}
+
+.left-hero * {
+  padding: 0;
 }
 
 .middle-hero {
@@ -25,7 +39,7 @@ div.hourly-weather {
   border-radius: 2rem;
   padding: 3rem;
   margin: 1rem;
-
+  min-width: 25vw;
 }
 
 div.weather-result-hourly {
@@ -38,5 +52,13 @@ div.daily-weather {
   border-radius: 2rem;
   padding: 3rem;
   margin: 1rem;
+}
 
+div.night {
+  color: #9e9e9e;
+  background-color: #181a1f;
+}
+
+.day {
+  /* test */
 }

@@ -8,8 +8,9 @@ const weatherArray = [];
 const positionObj = {};
 
 const resultState = document.querySelector('h1.weather-result-hero');
-const resultCountry = document.querySelector('h2.weather-result-hero');
+const resultCountry = document.querySelector('p.weather-result-hero-country');
 const resultDate = document.querySelector('p.weather-result-hero');
+const heroIcon = document.querySelector('img.middle-hero-icon');
 const currentWeatherDescription = document.querySelector('p.middle-hero-weather');
 const currentTemp = document.querySelector('p.middle-hero-temp');
 const heroSunrise = document.querySelector('p.right-hero-sunrise');
@@ -54,9 +55,10 @@ const displayHero = () => {
 
   resultState.innerHTML = `${positionObj.locationInfo[4].text}`;
   resultCountry.innerHTML = `${positionObj.locationInfo[6].text}`;
-  resultDate.innerHTML = convertTimestampToDate(weatherArray[0].current.dt * 1000);
+  resultDate.innerHTML = `${getTime(weatherArray[0].current.dt * 1000)} - ${convertTimestampToWeekday(weatherArray[0].current.dt * 1000)}, ${convertTimestampToDate(weatherArray[0].current.dt * 1000)}`;
+  heroIcon.src = `https://openweathermap.org/img/w/${weatherArray[0].current.weather[0].icon}.png`
   currentWeatherDescription.innerHTML = `${weatherArray[0].current.weather[0].description}`;
-  currentTemp.innerHTML = `${convertKelvintoDegC(weatherArray[0].current.temp).toFixed(0)}°C`;
+  currentTemp.innerHTML = `${convertKelvintoDegC(weatherArray[0].current.temp).toFixed(0)}°C <span class="middle-hero-temp-feels">(but feels like ${convertKelvintoDegC(weatherArray[0].current.feels_like).toFixed(0)}°C)</span>`;
   heroSunrise.innerHTML = `${getTime(weatherArray[0].current.sunrise * 1000)}`;
   heroSunset.innerHTML = `${getTime(weatherArray[0].current.sunset * 1000)}`;
 
@@ -71,20 +73,10 @@ const displayHourlyWeather = () => {
     let hourDiv = document.createElement('div')
     hourDiv.setAttribute('class', 'hourly-weather');
     let thatHour = weatherArray[0].hourly[index];
-    // let icon;
-    
-    // if (thatHour.weather[0].description.toLowerCase() === 'overcast clouds') {
-    //   icon = 'overcast.png'
-    // } else if (thatHour.weather[0].description.toLowerCase() === 'light rain') {
-    //   icon = 'rain.png'
-    // } else if (thatHour.weather[0].description.toLowerCase() === 'moderate rain') {
-    //   icon = 'rain.png'
-    // } else if (thatHour.weather[0].description.toLowerCase() === 'broken clouds') {
-    //   icon = 'clouds.png'
-    // } else if (thatHour.weather[0].description.toLowerCase() === 'thunderstorm with rain') {
-    //   icon = 'heavy-storm.png'
-    // } 
-    
+
+    if (new Date(thatHour.dt * 1000).getHours() > 17 || new Date(thatHour.dt * 1000).getHours() < 7) {
+      hourDiv.classList.add('night');
+    }
 
     hourDiv.innerHTML = `
     
@@ -95,7 +87,6 @@ const displayHourlyWeather = () => {
 
     `;
 
-    console.log(hourDiv);
     weatherResultHourly.appendChild(hourDiv);
 
   }
@@ -114,7 +105,7 @@ const displayDailyWeather = () => {
 
     dailyDiv.innerHTML = `
     
-      <p>${convertTimestampToWeekday(thatDay.dt * 1000)}</p>
+      <p>${convertTimestampToWeekday(thatDay.dt * 1000)}, ${convertTimestampToDate(thatDay.dt * 1000)}</p>
       <img style="width: 50px;" src="https://openweathermap.org/img/w/${thatDay.weather[0].icon}.png">
       <p>${thatDay.weather[0].description}</p>
       <p>${convertKelvintoDegC(thatDay.temp.day).toFixed(0)}°C</p>
@@ -122,7 +113,6 @@ const displayDailyWeather = () => {
 
     `;
 
-    console.log(dailyDiv);
     weatherResultDaily.appendChild(dailyDiv);
 
   }
@@ -132,22 +122,24 @@ const displayDailyWeather = () => {
 // Convert the Epoch timestamp to usable/readable date format
 function convertTimestampToDate(timestamp) {
 
+  const monthsOfYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   let date = new Date(timestamp);
-  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+  return `${date.getDate()} ${monthsOfYear[date.getMonth()]} ${date.getFullYear()}`;
 
 }
 
 // Convert the Epoch timestamp to usable/readable date format
 function convertTimestampToShortDate(timestamp) {
 
+  const monthsOfYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   let date = new Date(timestamp);
-  return `${date.getDate()}/${date.getMonth() + 1}`;
+  return `${date.getDate()} ${monthsOfYear[date.getMonth()]}`;
 
 }
 
 function convertTimestampToWeekday(timestamp) {
 
-  const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   let date = new Date(timestamp);
   return `${weekdays[date.getDay()]}`;
