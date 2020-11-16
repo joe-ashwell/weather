@@ -58,7 +58,7 @@ const displayHero = () => {
   resultDate.innerHTML = `${getTime(weatherArray[0].current.dt * 1000)} - ${convertTimestampToWeekday(weatherArray[0].current.dt * 1000)}, ${convertTimestampToDate(weatherArray[0].current.dt * 1000)}`;
   heroIcon.src = `https://openweathermap.org/img/w/${weatherArray[0].current.weather[0].icon}.png`
   currentWeatherDescription.innerHTML = `${weatherArray[0].current.weather[0].description}`;
-  currentTemp.innerHTML = `${convertKelvintoDegC(weatherArray[0].current.temp).toFixed(0)}°C <span class="middle-hero-temp-feels">(but feels like ${convertKelvintoDegC(weatherArray[0].current.feels_like).toFixed(0)}°C)</span>`;
+  currentTemp.innerHTML = `${convertKelvintoDegC(weatherArray[0].current.temp).toFixed(0)}°C <span class="middle-hero-temp-feels">(feels like ${convertKelvintoDegC(weatherArray[0].current.feels_like).toFixed(0)}°C)</span>`;
   heroSunrise.innerHTML = `${getTime(weatherArray[0].current.sunrise * 1000)}`;
   heroSunset.innerHTML = `${getTime(weatherArray[0].current.sunset * 1000)}`;
 
@@ -74,17 +74,23 @@ const displayHourlyWeather = () => {
     hourDiv.setAttribute('class', 'hourly-weather');
     let thatHour = weatherArray[0].hourly[index];
 
-    if (new Date(thatHour.dt * 1000).getHours() > 17 || new Date(thatHour.dt * 1000).getHours() < 7) {
+    if ((new Date(thatHour.dt * 1000).getHours()) > 17 || (new Date(thatHour.dt * 1000).getHours()) < 7) {
       hourDiv.classList.add('night');
     }
 
     hourDiv.innerHTML = `
-    
-      <p>${convertTimestampToShortDate(thatHour.dt * 1000)} ${getTime(thatHour.dt * 1000)}</p>
-      <img style="width: 50px;" src="https://openweathermap.org/img/w/${thatHour.weather[0].icon}.png">
-      <p>${thatHour.weather[0].description}</p>
-      <p>${convertKelvintoDegC(thatHour.temp).toFixed(0)}°C</p>
+    <p class="hourly-time">${convertTimestampToShortDate(thatHour.dt * 1000)} ${getTime(thatHour.dt * 1000)}</p>
+    <div class="hourly-wrapper">
+      <div class="hourly-left">
+        <img style="width: 50px;" src="https://openweathermap.org/img/w/${thatHour.weather[0].icon}.png">
+        <p>${thatHour.weather[0].description}</p>
+      </div>
 
+      <div class="hourly-right">
+        <p class="hourly-temp">${convertKelvintoDegC(thatHour.temp).toFixed(0)}°C</p>
+        <p class="hourly-temp-feels">feels like ${convertKelvintoDegC(thatHour.feels_like).toFixed(0)}°C</p>
+      </div>
+      </div>
     `;
 
     weatherResultHourly.appendChild(hourDiv);
