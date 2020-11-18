@@ -79,17 +79,17 @@ const displayHourlyWeather = () => {
     }
 
     hourDiv.innerHTML = `
-    <p class="hourly-time">${convertTimestampToShortDate(thatHour.dt * 1000)} ${getTime(thatHour.dt * 1000)}</p>
-    <div class="hourly-wrapper">
-      <div class="hourly-left">
-        <img style="width: 50px;" src="https://openweathermap.org/img/w/${thatHour.weather[0].icon}.png">
-        <p>${thatHour.weather[0].description}</p>
-      </div>
 
-      <div class="hourly-right">
+    <div class="hourly-header">
+      <p class="hourly-time">${convertTimestampToShortDate(thatHour.dt * 1000)} ${getTime(thatHour.dt * 1000)}</p>
+      <img src="https://openweathermap.org/img/w/${thatHour.weather[0].icon}.png">
+    </div>
+
+
+      <div class="hourly-content">
+        <p class="weather-current-description">${thatHour.weather[0].description}</p>
         <p class="hourly-temp">${convertKelvintoDegC(thatHour.temp).toFixed(0)}°C</p>
         <p class="hourly-temp-feels">feels like ${convertKelvintoDegC(thatHour.feels_like).toFixed(0)}°C</p>
-      </div>
       </div>
     `;
 
