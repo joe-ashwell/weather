@@ -11,7 +11,6 @@ const resultHero = document.querySelector('div.weather-result-hero');
 const resultState = document.querySelector('h1.weather-result-hero');
 const resultCountry = document.querySelector('p.weather-result-hero-country');
 const resultDate = document.querySelector('p.weather-result-hero');
-const heroIcon = document.querySelector('img.middle-hero-icon');
 const currentWeatherDescription = document.querySelector('p.middle-hero-weather');
 const currentTemp = document.querySelector('p.middle-hero-temp');
 const heroSunrise = document.querySelector('p.right-hero-sunrise');
@@ -57,16 +56,23 @@ const displayHero = () => {
   resultState.innerHTML = `${positionObj.locationInfo[4].text}`;
   resultCountry.innerHTML = `${positionObj.locationInfo[6].text}`;
   resultDate.innerHTML = `${getTime(weatherArray[0].current.dt * 1000)} - ${convertTimestampToWeekday(weatherArray[0].current.dt * 1000)}, ${convertTimestampToDate(weatherArray[0].current.dt * 1000)}`;
-  heroIcon.src = `https://openweathermap.org/img/w/${weatherArray[0].current.weather[0].icon}.png`
-  currentWeatherDescription.innerHTML = `${weatherArray[0].current.weather[0].description}`;
-  currentTemp.innerHTML = `${convertKelvintoDegC(weatherArray[0].current.temp).toFixed(0)}°C <span class="middle-hero-temp-feels">(feels like ${convertKelvintoDegC(weatherArray[0].current.feels_like).toFixed(0)}°C)</span>`;
+  currentWeatherDescription.innerHTML = `${weatherArray[0].current.weather[0].description}, feels like ${convertKelvintoDegC(weatherArray[0].current.feels_like).toFixed(0)}°C`;
+  currentTemp.innerHTML = `${convertKelvintoDegC(weatherArray[0].current.temp).toFixed(0)}°C`;
   heroSunrise.innerHTML = `${getTime(weatherArray[0].current.sunrise * 1000)}`;
   heroSunset.innerHTML = `${getTime(weatherArray[0].current.sunset * 1000)}`;
 
-  if (weatherArray[0].current.weather[0].description.includes('sun')) {
-    resultHero.style.background = 'red';
-  } else {
-    resultHero.style.background = `url('img/clouds.jpg')`;
+  if (weatherArray[0].current.weather[0].main.toLowerCase().includes('thunderstorm')) {
+    resultHero.classList.add('thunder-hero');
+  } else if (weatherArray[0].current.weather[0].main.toLowerCase().includes('drizzle')) {
+    resultHero.classList.add('rain-hero');
+  } else if (weatherArray[0].current.weather[0].main.toLowerCase().includes('rain')) {
+    resultHero.classList.add('rain-hero');
+  } else if (weatherArray[0].current.weather[0].main.toLowerCase().includes('snow')) {
+    resultHero.classList.add('snow-hero');
+  } else if (weatherArray[0].current.weather[0].main.toLowerCase().includes('clear')) {
+    resultHero.classList.add('clear-hero');
+  } else if (weatherArray[0].current.weather[0].main.toLowerCase().includes('clouds')) {
+    resultHero.classList.add('cloud-hero');
   }
 
 }
@@ -93,11 +99,11 @@ const displayHourlyWeather = () => {
     </div>
 
 
-      <div class="hourly-content">
-        <p class="weather-current-description">${thatHour.weather[0].description}</p>
-        <p class="hourly-temp">${convertKelvintoDegC(thatHour.temp).toFixed(0)}°C</p>
-        <p class="hourly-temp-feels">feels like ${convertKelvintoDegC(thatHour.feels_like).toFixed(0)}°C</p>
-      </div>
+    <div class="hourly-content">
+      <p class="weather-current-description">${thatHour.weather[0].description}</p>
+      <p class="hourly-temp">${convertKelvintoDegC(thatHour.temp).toFixed(0)}°C</p>
+      <p class="hourly-temp-feels">feels like ${convertKelvintoDegC(thatHour.feels_like).toFixed(0)}°C</p>
+    </div>
     `;
 
     weatherResultHourly.appendChild(hourDiv);
