@@ -41,7 +41,7 @@ body {
 }
 
 div.right-hero-sunrise {
-  background-color: #fff4bc;
+  background-color: #f5f5f5;
   border-radius: 0 2rem 0 0;
   padding: 3rem;
 }
@@ -84,10 +84,18 @@ div.hourly-wrapper {
 div.hourly-weather {
   display: flex;
   flex-direction: column;
-  background-color: #fff4bc;
+  background-color: #f5f5f5;
   border-radius: 2rem;
   margin: 1rem;
   min-width: 20vw;
+}
+
+div.hourly-header {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 2rem 2rem 0 0;
+  border-bottom: solid 1px #e6e6e6;
+  margin: 0;
 }
 
 div.night {
@@ -95,12 +103,8 @@ div.night {
   background-color: #181a1f;
 }
 
-div.hourly-header {
-  display: flex;
-  justify-content: space-between;
-  border-radius: 2rem 2rem 0 0;
-  border-bottom: solid 1px #ffe29a;
-  margin: 0;
+div.night .hourly-header {
+  border-bottom: solid 1px #000;
 }
 
 div.hourly-header p {
@@ -114,6 +118,14 @@ div.hourly-header img {
 p.weather-current-description,
 p.hourly-temp-feels {
   text-transform: capitalize;
+}
+
+p.weather-current-description {
+  margin-top: 2rem;
+}
+
+p.hourly-temp-feels {
+  margin-bottom: 2rem;
 }
 
 p.hourly-temp {

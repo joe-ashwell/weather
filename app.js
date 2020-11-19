@@ -7,6 +7,7 @@
 const weatherArray = [];
 const positionObj = {};
 
+const resultHero = document.querySelector('div.weather-result-hero');
 const resultState = document.querySelector('h1.weather-result-hero');
 const resultCountry = document.querySelector('p.weather-result-hero-country');
 const resultDate = document.querySelector('p.weather-result-hero');
@@ -62,6 +63,12 @@ const displayHero = () => {
   heroSunrise.innerHTML = `${getTime(weatherArray[0].current.sunrise * 1000)}`;
   heroSunset.innerHTML = `${getTime(weatherArray[0].current.sunset * 1000)}`;
 
+  if (weatherArray[0].current.weather[0].description.includes('sun')) {
+    resultHero.style.background = 'red';
+  } else {
+    resultHero.style.background = `url('img/clouds.jpg')`;
+  }
+
 }
 
 const displayHourlyWeather = () => {
@@ -74,14 +81,14 @@ const displayHourlyWeather = () => {
     hourDiv.setAttribute('class', 'hourly-weather');
     let thatHour = weatherArray[0].hourly[index];
 
-    if ((new Date(thatHour.dt * 1000).getHours()) > 17 || (new Date(thatHour.dt * 1000).getHours()) < 7) {
+    if ((new Date(thatHour.dt * 1000).getHours()) > 16 || (new Date(thatHour.dt * 1000).getHours()) < 7) {
       hourDiv.classList.add('night');
     }
 
     hourDiv.innerHTML = `
 
     <div class="hourly-header">
-      <p class="hourly-time">${convertTimestampToShortDate(thatHour.dt * 1000)} ${getTime(thatHour.dt * 1000)}</p>
+      <p class="hourly-time">${getTime(thatHour.dt * 1000)} - ${convertTimestampToShortDate(thatHour.dt * 1000)}</p>
       <img src="https://openweathermap.org/img/w/${thatHour.weather[0].icon}.png">
     </div>
 
