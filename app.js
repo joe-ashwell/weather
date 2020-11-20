@@ -73,6 +73,8 @@ const displayHero = () => {
     resultHero.classList.add('clear-hero');
   } else if (weatherArray[0].current.weather[0].main.toLowerCase().includes('clouds')) {
     resultHero.classList.add('cloud-hero');
+  } else {
+    resultHero.classList.add('default-hero');
   }
 
 }
@@ -124,13 +126,45 @@ const displayDailyWeather = () => {
 
     dailyDiv.innerHTML = `
     
-      <p>${convertTimestampToWeekday(thatDay.dt * 1000)}, ${convertTimestampToDate(thatDay.dt * 1000)}</p>
-      <img style="width: 50px;" src="https://openweathermap.org/img/w/${thatDay.weather[0].icon}.png">
-      <p>${thatDay.weather[0].description}</p>
-      <p>${convertKelvintoDegC(thatDay.temp.day).toFixed(0)}°C</p>
-      <p>${convertKelvintoDegC(thatDay.temp.night).toFixed(0)}°C</p>
+      <div class="daily-div-overlay">
+
+          <div>
+            <p class="daily-div-time">${convertTimestampToWeekday(thatDay.dt * 1000)}, ${convertTimestampToDate(thatDay.dt * 1000)}</p>
+            <p class="daily-div-temp">${convertKelvintoDegC(thatDay.temp.day).toFixed(0)}°C</p>
+            <p><i class="fa fa-angle-down" aria-hidden="true"></i> ${convertKelvintoDegC(thatDay.temp.min).toFixed(0)}°C <i class="fa fa-angle-up" aria-hidden="true"></i> ${convertKelvintoDegC(thatDay.temp.max).toFixed(0)}°C</p>
+            <p class="daily-div-description">${thatDay.weather[0].description} with a ${(thatDay.pop * 100).toFixed(0)}% chance of rain</p>
+          </div>
+
+          <div class="daily-div-sunset">
+            <div class="right-hero-sunrise">
+              <i class="fa fa-sun-o" aria-hidden="true"></i>
+              <p class="day-sunrise">${getTime(thatDay.sunrise * 1000)}</p>
+            </div>
+            <div class="right-hero-sunrise night">
+              <i class="fa fa-moon-o" aria-hidden="true"></i>
+              <p class="day-sunset">${getTime(thatDay.sunset * 1000)}</p>
+            </div>
+          </div>
+
+      </div>
 
     `;
+    
+    if (thatDay.weather[0].main.toLowerCase().includes('thunderstorm')) {
+      dailyDiv.classList.add('thunder-hero');
+    } else if (thatDay.weather[0].main.toLowerCase().includes('drizzle')) {
+      dailyDiv.classList.add('rain-hero');
+    } else if (thatDay.weather[0].main.toLowerCase().includes('rain')) {
+      dailyDiv.classList.add('rain-hero');
+    } else if (thatDay.weather[0].main.toLowerCase().includes('snow')) {
+      dailyDiv.classList.add('snow-hero');
+    } else if (thatDay.weather[0].main.toLowerCase().includes('clear')) {
+      dailyDiv.classList.add('clear-hero');
+    } else if (thatDay.weather[0].main.toLowerCase().includes('clouds')) {
+      dailyDiv.classList.add('cloud-hero');
+    } else {
+      dailyDiv.classList.add('default-hero');
+    }
 
     weatherResultDaily.appendChild(dailyDiv);
 

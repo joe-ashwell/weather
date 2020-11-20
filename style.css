@@ -102,9 +102,11 @@ p.right-hero-sunrise {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
-/* Hero image */
+/* Images & classes */
 .thunder-hero {
   background: url('img/storm.jpg');
   background-repeat: no-repeat;
@@ -145,6 +147,10 @@ p.right-hero-sunrise {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+}
+
+.default-hero {
+  background-color: #e5e5e5;
 }
 /* === Hourly === */
 h3 {
@@ -228,9 +234,65 @@ div.hourly-content {
 }
 
 /* === Daily === */
+div.weather-result-daily {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
 div.daily-weather {
-  background-color: gray;
   border-radius: 2rem;
-  padding: 3rem;
-  margin: 50px;
+  width: 45%;
+  margin: 2rem;
+}
+
+div.daily-weather:nth-child(odd) {
+  margin-left: 4%;
+  margin-right: 1%;
+}
+
+div.daily-weather:nth-child(even) {
+  margin-left: 1%;
+  margin-right: 4%;
+}
+
+div.daily-div-overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+div.daily-div-sunset {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+p.daily-div-temp {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+}
+
+p.daily-div-description::first-letter {
+  text-transform: capitalize;
+}
+
+p.daily-div-description {
+  margin-bottom: 96px;
+}
+
+p.day-sunrise,
+p.day-sunset {
+  margin: 0.5rem;
+}
+
+div.daily-div-sunset {
+  display: flex;
+  flex-direction: column;
+}
+
+p.daily-div-time {
+  margin: 2rem;
 }
