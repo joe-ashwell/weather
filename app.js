@@ -118,7 +118,7 @@ const displayDailyWeather = () => {
 
   const weatherResultDaily = document.querySelector('div.weather-result-daily');
 
-  for (let index = 1; index < 8; index++) {
+  for (let index = 0; index < 8; index++) {
 
     let dailyDiv = document.createElement('div')
     dailyDiv.setAttribute('class', 'daily-weather');
@@ -132,7 +132,7 @@ const displayDailyWeather = () => {
             <p class="daily-div-time">${convertTimestampToWeekday(thatDay.dt * 1000)}, ${convertTimestampToDate(thatDay.dt * 1000)}</p>
             <p class="daily-div-temp">${convertKelvintoDegC(thatDay.temp.day).toFixed(0)}°C</p>
             <p class="daily-div-minmax-temp"><i class="fa fa-angle-down" aria-hidden="true"></i> ${convertKelvintoDegC(thatDay.temp.min).toFixed(0)}°C <i class="fa fa-angle-up" aria-hidden="true"></i> ${convertKelvintoDegC(thatDay.temp.max).toFixed(0)}°C</p>
-            <p class="daily-div-description">${thatDay.weather[0].description} with a ${(thatDay.pop * 100).toFixed(0)}% chance of rain</p>
+            <p class="daily-div-description">${thatDay.weather[0].description} will make it feel like ${convertKelvintoDegC(thatDay.feels_like.day).toFixed(0)}°C on average. <br> There's a ${(thatDay.pop * 100).toFixed(0)}% chance it'll rain.</p>
           </div>
 
           <div class="daily-div-sunset">

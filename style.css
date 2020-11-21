@@ -272,7 +272,8 @@ div.daily-div-overlay {
 p.daily-div-time,
 p.daily-div-temp,
 p.daily-div-minmax-temp,
-p.daily-div-description {
+p.daily-div-description,
+p.daily-div-feels-like {
   color: var(--light-font-colour);
 }
 
@@ -284,7 +285,7 @@ div.daily-div-sunset {
 
 p.daily-div-temp {
   font-size: 5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
   margin-left: 2rem;
 }
 
@@ -297,7 +298,7 @@ p.daily-div-description::first-letter {
 }
 
 p.daily-div-description {
-  margin-bottom: 96px;
+  margin-bottom: 106px;
   margin-left: 2rem;
 }
 
