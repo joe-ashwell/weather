@@ -131,18 +131,18 @@ const displayDailyWeather = () => {
           <div>
             <p class="daily-div-time">${convertTimestampToWeekday(thatDay.dt * 1000)}, ${convertTimestampToDate(thatDay.dt * 1000)}</p>
             <p class="daily-div-temp">${convertKelvintoDegC(thatDay.temp.day).toFixed(0)}°C</p>
-            <p><i class="fa fa-angle-down" aria-hidden="true"></i> ${convertKelvintoDegC(thatDay.temp.min).toFixed(0)}°C <i class="fa fa-angle-up" aria-hidden="true"></i> ${convertKelvintoDegC(thatDay.temp.max).toFixed(0)}°C</p>
+            <p class="daily-div-minmax-temp"><i class="fa fa-angle-down" aria-hidden="true"></i> ${convertKelvintoDegC(thatDay.temp.min).toFixed(0)}°C <i class="fa fa-angle-up" aria-hidden="true"></i> ${convertKelvintoDegC(thatDay.temp.max).toFixed(0)}°C</p>
             <p class="daily-div-description">${thatDay.weather[0].description} with a ${(thatDay.pop * 100).toFixed(0)}% chance of rain</p>
           </div>
 
           <div class="daily-div-sunset">
             <div class="right-hero-sunrise">
               <i class="fa fa-sun-o" aria-hidden="true"></i>
-              <p class="day-sunrise">${getTime(thatDay.sunrise * 1000)}</p>
+              <p class="day-sunrise">${getTime(thatDay.sunrise * 1000) } </p>
             </div>
-            <div class="right-hero-sunrise night">
+            <div class="right-hero-sunset night">
               <i class="fa fa-moon-o" aria-hidden="true"></i>
-              <p class="day-sunset">${getTime(thatDay.sunset * 1000)}</p>
+              <p class="day-sunset">${getTime(thatDay.sunset * 1000) } </p>
             </div>
           </div>
 
