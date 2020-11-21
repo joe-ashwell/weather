@@ -310,3 +310,20 @@ p.day-sunset {
 p.daily-div-time {
   margin: 2rem;
 }
+
+/* Mobile styling */
+div.mobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.fa-mobile {
+  font-size: 5rem;
+}
+
+p.mobile {
+  font-size: 19px;
+}
