@@ -32,7 +32,7 @@ if (mQ.matches) {
     <h1 class="mobile">Oh no!</h1>
     <p class="mobile">This won't work on mobile or tablets.</p>
   </div>
-  
+
   `;
 
 }
@@ -94,6 +94,8 @@ const displayHero = () => {
     resultHero.classList.add('clear-hero');
   } else if (weatherArray[0].current.weather[0].main.toLowerCase().includes('clouds')) {
     resultHero.classList.add('cloud-hero');
+  } else if (weatherArray[0].current.weather[0].main.toLowerCase().includes('fog')) {
+    resultHero.classList.add('fog-hero');
   } else {
     resultHero.classList.add('default-hero');
   }
