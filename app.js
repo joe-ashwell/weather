@@ -74,8 +74,16 @@ const getLocalWeather = (location) => {
 // Tried passing in the positionArray as an arguement, but that created a console error as when the script is ran initially the array is empty, so everything is undefined.
 const displayHero = () => {
 
-  resultState.innerHTML = `${positionObj.locationInfo[4].text}`;
-  resultCountry.innerHTML = `${positionObj.locationInfo[6].text || positionObj.locationInfo[5].text}`;
+  if(positionObj.locationInfo.length < 7) {
+    locationState = positionObj.locationInfo[3].text;
+    locationCountry = positionObj.locationInfo[5].text;
+  } else {
+    locationState = positionObj.locationInfo[4].text;
+    locationCountry = positionObj.locationInfo[6].text;
+  }
+
+  resultState.innerHTML = `${locationState}`;
+  resultCountry.innerHTML = `${locationCountry}`;
   resultDate.innerHTML = `${getTime(weatherArray[0].current.dt * 1000)} - ${convertTimestampToWeekday(weatherArray[0].current.dt * 1000)}, ${convertTimestampToDate(weatherArray[0].current.dt * 1000)}`;
   currentWeatherDescription.innerHTML = `${weatherArray[0].current.weather[0].description}, feels like ${convertKelvintoDegC(weatherArray[0].current.feels_like).toFixed(0)}°C`;
   currentTemp.innerHTML = `${convertKelvintoDegC(weatherArray[0].current.temp).toFixed(0)}°C`;
