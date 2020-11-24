@@ -396,11 +396,11 @@ p.daily-div-time {
   
   div.hourly-weather {
     border-radius: 2rem;
-    min-width: 80vw;
+    min-width: 90vw;
   }
 
   div.hourly-weather:first-child {
-    margin-left: 10vw;
+    margin-left: 5vw;
   }
   
   /* === Daily === */
