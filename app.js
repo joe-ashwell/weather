@@ -16,27 +16,6 @@ const currentTemp = document.querySelector('p.middle-hero-temp');
 const heroSunrise = document.querySelector('p.right-hero-sunrise');
 const heroSunset = document.querySelector('p.right-hero-sunset');
 
-// const body = document.querySelector('body');
-
-// // Creates variable to check if on mobile
-// const mQ = window.matchMedia( "(max-width: 767px)" );
-
-// // Conditional to check if user is on mobile, and if so explain it won't work
-// if (mQ.matches) {
-
-//   // window width is less than 767px
-//   body.innerHTML = `
-
-//   <div class="mobile">
-//     <i class="fa fa-mobile"></i>
-//     <h1 class="mobile">Oh no!</h1>
-//     <p class="mobile">This won't work on mobile or tablets.</p>
-//   </div>
-
-//   `;
-
-// }
-
 const getLocation = () => {
 
   navigator.geolocation.getCurrentPosition(function(position) {

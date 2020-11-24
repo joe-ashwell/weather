@@ -112,7 +112,7 @@ p.right-hero-sunrise {
   margin-bottom: 0.5rem;
 }
 
-/* Images & classes */
+/* === Images & classes === */
 .thunder-hero {
   background: url('img/storm.jpg');
   background-repeat: no-repeat;
@@ -165,6 +165,7 @@ p.right-hero-sunrise {
 .default-hero {
   background-color: #e5e5e5;
 }
+
 /* === Hourly === */
 h3 {
   margin-left: 5rem;
@@ -318,19 +319,173 @@ p.daily-div-time {
   margin: 2rem;
 }
 
-/* Mobile styling */
-div.mobile {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
+/* === Mobile styling === */
+@media only screen and (max-width: 767px) {
 
-.fa-mobile {
-  font-size: 5rem;
-}
+  /* === Hero === */
+  div.weather-result-hero {
+    min-height: 100vh;
+  }
+  
+  div.weather-result-hero-overlay {
+    background-color: var(--overlay-blue);
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  h1.weather-result-hero {
+    font-size: 1rem;
+  }
+  
+  p.weather-result-hero-country {
+    display: none;
+  }
+  
+  .left-hero,
+  .middle-hero {
+    margin-left: 0;
+    text-align: center;
+  }
 
-p.mobile {
-  font-size: 19px;
+  .left-hero {
+    margin-bottom: 5rem;
+  }
+  
+  .middle-hero-temp {
+    font-size: 5rem;
+    margin-bottom: 0;
+  }
+  
+  .middle-hero-weather {
+    margin-bottom: 0;
+  }
+
+  div.right-hero-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    justify-content: space-evenly;
+  }
+  
+  div.right-hero-sunrise {
+    background-color: #f5f5f5;
+    color: var(--dark-font-colour);
+    border-radius: 0;
+    padding: 1rem;
+    width: 50vw;
+  }
+
+  div.right-hero-sunset {
+    border-radius: 0;
+    padding: 1rem;
+    width: 50vw;
+  }
+  
+  p.right-hero-sunset,
+  p.right-hero-sunrise,
+  .fa {
+    margin: 0.25rem;
+  }
+
+  /* === Hourly === */
+  h3 {
+    margin-left: 1rem;
+  }
+  
+  div.hourly-weather {
+    border-radius: 2rem;
+    min-width: 80vw;
+  }
+
+  div.hourly-weather:first-child {
+    margin-left: 10vw;
+  }
+  
+  /* === Daily === */
+
+  div.weather-result-daily {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  
+  div.daily-weather {
+    border-radius: 2rem;
+    width: 90vw;
+    margin: 2rem;
+  }
+  
+  div.daily-weather {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  div.daily-div-overlay {
+    background-color: var(--overlay-black);
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  div.daily-weather:nth-child(odd),
+  div.daily-weather:nth-child(even) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  div.daily-div-sunset {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+  div.daily-div-sunset .right-hero-sunrise {
+    margin-bottom: 0;
+    border-radius: 0 0 0 2rem;
+    border: solid 1px var(--light-font-colour);
+    }
+
+  div.daily-div-sunset .right-hero-sunset {
+    margin-bottom: 0;
+    border-radius: 0 0 2rem 0;
+    border: solid 2px var(--dark-font-colour);
+  }
+  
+  p.daily-div-temp {
+    font-size: 5rem;
+    margin-bottom: 0;
+    margin-left: 2rem;
+  }
+  
+  p.daily-div-minmax-temp {
+    margin-left: 2rem;
+  }
+  
+  p.daily-div-description::first-letter {
+    text-transform: capitalize;
+  }
+  
+  p.daily-div-description {
+    margin-bottom: 106px;
+    margin-left: 2rem;
+  }
+  
+  p.day-sunrise,
+  p.day-sunset {
+    margin: 0.5rem;
+  }
+  
+  p.daily-div-time {
+    margin: 2rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-left: auto;
+  }
+
 }
