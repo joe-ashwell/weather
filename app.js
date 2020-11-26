@@ -107,7 +107,7 @@ const displayHourlyWeather = () => {
 
     <div class="hourly-header">
       <p class="hourly-time">${getTime(thatHour.dt * 1000)} - ${convertTimestampToShortDate(thatHour.dt * 1000)}</p>
-      <img src="https://openweathermap.org/img/w/${thatHour.weather[0].icon}.png">
+      <img src="https://openweathermap.org/img/w/${thatHour.weather[0].icon}.png" alt="">
     </div>
 
 
@@ -148,11 +148,11 @@ const displayDailyWeather = () => {
           <div class="daily-div-sunset">
             <div class="right-hero-sunrise">
               <i class="fa fa-sun-o" aria-hidden="true"></i>
-              <p class="day-sunrise">${getTime(thatDay.sunrise * 1000) } </p>
+              <p class="day-sunrise">${getTime(thatDay.sunrise * 1000)} </p>
             </div>
             <div class="right-hero-sunset night">
               <i class="fa fa-moon-o" aria-hidden="true"></i>
-              <p class="day-sunset">${getTime(thatDay.sunset * 1000) } </p>
+              <p class="day-sunset">${getTime(thatDay.sunset * 1000)} </p>
             </div>
           </div>
 
